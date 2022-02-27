@@ -1,0 +1,15 @@
+To view info about a specific instance, type:
+
+"az vmss get-instance-view `
+--resource-group ScaleSetRg `
+--name myScaleSet `
+--instance-id <instance number from table above>"
+
+To connect via SSH to a certain instance, type:
+
+"ssh kekis@<publicIP> -p <port>"
+
+To cleanup, type:
+
+"az group delete -g ScaleSetRg"
+
