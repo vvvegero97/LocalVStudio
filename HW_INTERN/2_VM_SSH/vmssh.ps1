@@ -1,7 +1,7 @@
 #login to azure
 Write-Host "Login to azure service principal..."
 $applicationId = "d1376579-6a02-4c84-bc1b-91445da6e083"
-$password = "I.87Q~FfMue6-sZQiBEoXarDq-HxTgcda_DrI"
+$password = az keyvault secret show --name "serviceprincipalpass" --vault-name "vegeroKeyVault" --query "value"
 $tenantID = "511626b7-f429-49dc-9090-fa0561d419af"
 az login `
 --service-principal `
