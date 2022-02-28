@@ -1,14 +1,5 @@
-#az login
-Write-Host "Login to azure service principal..."
-$applicationId = "d1376579-6a02-4c84-bc1b-91445da6e083"
-$password = az keyvault secret show --name "serviceprincipalpass" --vault-name "vegeroKeyVault" --query "value"
-$tenantID = "511626b7-f429-49dc-9090-fa0561d419af"
-az login `
---service-principal `
---username "${applicationId}" `
---password "${password}" `
---tenant "${tenantID}"
-az account set --subscription a2eac919-7b94-4d7e-8ee6-db9fd3f78919
+#login to azure
+az login
 
 #create resource group
 Write-Host "Creating Resource group..."

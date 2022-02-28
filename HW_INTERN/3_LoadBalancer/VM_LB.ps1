@@ -1,30 +1,5 @@
-#initial reqiurements
-Write-Host "Before continuing, go to azure portal shell and do this:";
-Get-Content cloud-init.txt | Write-Host;
-#wait for user confirmation
-While($Selection -ne "Y" ){
-   $Selection = read-host "Continue? (Y/N)"
-    Switch ($Selection) 
-        { 
-            Y {Write-host "Continuing with validation"} 
-            N {Write-Host "Breaking out of script"} 
-        } 
-    If($Selection -eq "N"){Return}
-}
-Write-Host "Continuing with Script"
-
 #login to azure
-Write-Host "Logging in to azure service principal..."
-$applicationId = "d1376579-6a02-4c84-bc1b-91445da6e083"
-$password = az keyvault secret show --name "serviceprincipalpass" --vault-name "vegeroKeyVault" --query "value"
-$tenantID = "511626b7-f429-49dc-9090-fa0561d419af"
-az login `
---service-principal `
---username "${applicationId}" `
---password "${password}" `
---tenant "${tenantID}"
-#set context
-az account set --subscription a2eac919-7b94-4d7e-8ee6-db9fd3f78919
+az login
 
 #create resource group
 Write-Host "Creating Resource Group..."
@@ -116,7 +91,7 @@ for ( $i = 1 ; $i -le 3 ; $i++) {
     --image UbuntuLTS `
     --admin-username azureuser `
     --generate-ssh-keys `
-    --custom-data cloud-init.txt `
+    --custom-data testscript.sh `
     --no-wait
 }
 #test load balancer
@@ -127,5 +102,10 @@ az network public-ip show `
 --query [ipAddress] `
 --output tsv
 
+#wait for VMs to start
+for ( $i = 30 ; $i -ge 1; $i++) {
+    Write-Host "Please wait $i seconds for all VMs to start."
+    Start-Sleep -s 1
+}
 Write-Host "When done, don't forget to clean up with the command 'az group delete -g $myrg'"
 
