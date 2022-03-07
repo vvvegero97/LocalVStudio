@@ -44,3 +44,8 @@ variable "acrName" {
   type        = string
   description = "Name of Azure Container Registry."
 }
+
+variable "node_count" {
+  description = "Node count."
+  default = 1
+}

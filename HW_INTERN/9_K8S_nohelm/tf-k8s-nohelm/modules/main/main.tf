@@ -1,6 +1,6 @@
 # set up resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.clusterName}-${var.env_name}"
+  name     = "TerraformAKSrg"
   location = var.location
   tags     = {
     Environment = "Terraform AKS with container registry"
@@ -25,7 +25,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "${var.clusterDNSprefix}-${var.env_name}" # optional
   default_node_pool {
     name       = "default"
-    node_count = 1
+    node_count = var.node_count
     vm_size    = var.instance_type
     # max_pods   = 10 # optional, minimum (10 max_pods * node_count) count
   }

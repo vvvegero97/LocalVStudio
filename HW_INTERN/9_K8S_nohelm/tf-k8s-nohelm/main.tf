@@ -18,9 +18,10 @@ module "prod_cluster" {
     source        = "./modules/main"
     env_name      = "prod"
     clusterName   = "vegero-aks1"
-    instance_type = "Standard_D11_v2"
+    instance_type = "Standard_D2s_v3"
     env_tag       = "Production"
     acrName       = "VegeroProdACR"
+    node_count    = 2
 }
 
 #module "dev_cluster" {
@@ -29,5 +30,5 @@ module "prod_cluster" {
 #    clusterName   = "vegero-aks1"
 #    instance_type = "Standard_D2_v2"
 #    env_tag       = "Development"
-#    acrName       = "DevACR"
+#    acrName       = "VegeroDevACR"
 #}
